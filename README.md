@@ -1,86 +1,105 @@
-## 🚀 React Authentication Frontend
+# ⚡ React Authentication Frontend (JWT + Role-Based Access)
 
-
-A simple yet modern authentication frontend built with **React**.
-It includes user registration, login, and authentication state management using **Context API**.
+A simple but practical authentication frontend built with React.  
+This project demonstrates real-world authentication concepts including registration, login, JWT handling, and role-based access control.
 
 ---
 
-## ✨ Features
+## 🚀 Features
 
-* 🔐 User registration form
-* 🔑 Login system
-* ✔️ Confirm password validation
-* 🌐 Axios API integration
-* 🧠 Centralized auth state using Context API
-* 🪪 Stores user data (username, roles, access token)
-* ⚠️ Basic error handling
-* 🎨 Clean centered UI design
+- User Registration & Login system
+- JWT Authentication (access token handling)
+- Role-based authorization (User / Admin)
+- Protected routes using React Router
+- Global authentication state using Context API
+- Axios API integration (centralized instance)
+- Error handling for auth flows (400 / 401 / 409)
+- Persistent auth structure (ready for localStorage upgrade)
+- Clean and modular React structure
 
 ---
 
 ## 🔐 Authentication Flow
 
-### 📝 Registration
-
-* User enters username and password
-* Frontend validates confirm password
-* Sends data to `/register` API endpoint
-* Shows success or error messages
-* Redirects user to login page
-
----
-
-### 🔑 Login
-
-* User submits credentials
-
-
-
-* Stores authentication data in Context API
-
-Stores:
-
-* `username`
-* `roles`
-* `accessToken`
+### 📌 Registration
+- User enters username and password
+- Data sent to backend `/register`
+- Backend validates and hashes password
+- Handles duplicate users (409 error)
+- Redirects to login after success
 
 ---
 
-## 🧠 Auth Context Structure
-
-```js
-{
-  username,
-  roles,
-  accessToken
-}
-
-
-## 🧠 Learning Goals
-
-This project demonstrates:
-
-* Full-stack authentication flow
-* JWT-based authorization
-* Secure password handling
-* React Context API for global state
-* REST API communication
-* CORS understanding
-* Real-world MERN architecture patterns
-
-
-
-## 📌 Note
-
-This project focuses on learning authentication fundamentals and frontend state management.
-The backend handles actual authentication logic.
+### 📌 Login
+- User submits username + password
+- Backend validates credentials
+- Backend returns:
+  - JWT Access Token
+  - Roles (User / Admin)
+- Frontend stores auth in Context API:
+  - username
+  - roles
+  - accessToken
+- User is redirected to protected routes based on role
 
 ---
 
-## 🏁 Getting Started
+## 🛡️ Authorization System
 
-```bash
-npm install
-npm run dev
-```
+- Protected routes implemented using `RequireRole`
+- Role-based access control:
+  - User → can access user routes
+  - Admin → can access admin routes
+- Unauthorized users redirected to `/unauthorized`
+
+---
+
+## ⚙️ Tech Stack
+
+- React (Functional Components)
+- React Router
+- Context API
+- Axios
+- Node.js backend (API integration)
+- JWT Authentication
+- bcrypt password hashing (backend)
+
+---
+
+## 🧠 Key Learnings
+
+- JWT authentication flow (frontend + backend integration)
+- Role-based access control in React
+- Context API for global auth state management
+- Protected routes using React Router
+- Handling API errors properly (400 / 401 / 409)
+- Axios instance design for scalable projects
+- Debugging real-world issues (CORS, role mismatch, auth state issues)
+
+---
+
+## 🔥 Current Status
+
+✔ Registration working  
+✔ Login working  
+✔ JWT returned from backend  
+✔ Roles implemented  
+✔ Protected routes working  
+✔ Auth context functional  
+
+---
+
+## 🚀 Next Improvements (Planned)
+
+- Persist login using localStorage
+- Refresh token implementation
+- Axios interceptors (auto attach token)
+- Auto logout on token expiry
+- UI improvements (clean auth forms)
+- Backend integration hardening
+
+---
+
+## 👨‍💻 Author
+
+Built while learning full-stack authentication with MERN concepts and modern React patterns.
