@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../authentication/AuthContext";
 import api from "../api/usersApi";
 
@@ -6,8 +6,11 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { auth, setAuth } = useContext(AuthContext);
 
-  const { setAuth } = useContext(AuthContext);
+  useEffect(() => {
+    console.log("AUTH UPDATED:", auth);
+  }, [auth]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,27 +18,26 @@ function Login() {
     try {
       const res = await api.post("/login", {
         username,
-        password
+        password,
       });
 
       const accessToken = res?.data?.accessToken;
       const roles = res?.data?.roles;
-      console.log("Login response data:", res.data);
-      
+
       setAuth({ username, roles, accessToken });
+      console.log("AFTER SET:", { username, roles, accessToken });
       setUsername("");
       setPassword("");
       setError("");
     } catch (error) {
       if (error?.response?.status === 400) {
         setError("Invalid username or password");
-      }else if (error?.response?.status === 401) {
+      } else if (error?.response?.status === 401) {
         setError("Unauthorized please check your credentials");
-      }else {
+      } else {
         setError("Login failed");
         console.error("Login error:", error);
       }
-  
     }
   };
 
